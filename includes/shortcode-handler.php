@@ -1,6 +1,6 @@
 <?php
-class FSC_Shortcode_Handler {
-    public static function generate_shortcode( $atts ) {
+class FSMANAGER_Shortcode_Handler {
+    public static function fs_manager_generate_shortcode( $atts ) {
         $atts = shortcode_atts( array(
             'form_plugin' => '',
             'form_id' => ''
@@ -11,20 +11,20 @@ class FSC_Shortcode_Handler {
         ob_start();
         if ( ! empty( $submissions ) ) {
             echo '<table>';
-            echo '<thead><tr><th>' . __( 'ID', 'form-submission-capture' ) . '</th><th>' . __( 'Submission Data', 'form-submission-capture' ) . '</th></tr></thead>';
+            echo '<thead><tr><th>' . esc_html( 'ID', 'form-submissions-manager' ) . '</th><th>' . esc_html( 'Submission Data', 'form-submissions-manager' ) . '</th></tr></thead>';
             echo '<tbody>';
             foreach ( $submissions as $submission ) {
                 echo '<tr>';
                 echo '<td>' . esc_html( $submission['id'] ) . '</td>';
-                echo '<td>' . esc_html( json_encode( $submission['data'] ) ) . '</td>';
+                echo '<td>' . esc_html( wp_json_encode( $submission['data'] ) ) . '</td>';
                 echo '</tr>';
             }
             echo '</tbody>';
             echo '</table>';
         } else {
-            echo '<p>' . __( 'No submissions found', 'form-submission-capture' ) . '</p>';
+            echo '<p>' . esc_html( 'No submissions found', 'form-submissions-manager' ) . '</p>';
         }
         return ob_get_clean();
     }
 }
-add_shortcode( 'fsc_form_submissions', array( 'FSC_Shortcode_Handler', 'generate_shortcode' ) );
+add_shortcode( 'fsc_form_submissions', array( 'FSMANAGER_Shortcode_Handler', 'fs_manager_generate_shortcode' ) );
