@@ -1,22 +1,29 @@
 <?php
-class FSC_Ajax_Handler
+namespace FSCMNGR\Includes;
+
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+class FSCMNGR_Ajax_Handler
 {
-    public static function handle_form_submission_filter()
+    public static function fscmngr_handle_form_submission_filter()
     {
-        check_ajax_referer('fsc_nonce', 'nonce');
+        check_ajax_referer('fscmngr_nonce', 'nonce');
 
         // Capture filtering parameters
         $_POST['form_plugin'] = sanitize_text_field($_POST['form_plugin']);
         $_POST['form_id']     = intval($_POST['form_id']);
 
         // Call the display method to fetch and output submissions
-        FSC_Form_Submission::fetch_and_display_submissions();
+        FSCMNGR_Form_Submission::fetch_and_display_submissions();
 
         wp_die();
     }
-    public static function handle_submission_deletion()
+    public static function fscmngr_handle_submission_deletion()
     {
-        check_ajax_referer('fsc_nonce', 'nonce');
+        check_ajax_referer('fscmngr_nonce', 'nonce');
 
         global $wpdb;
         $submission_id = intval($_POST['submission_id']);
@@ -33,9 +40,9 @@ class FSC_Ajax_Handler
     /**
      * Handle sending an email with submission data
      */
-    public static function handle_send_email()
+    public static function fscmngr_handle_send_email()
     {
-        check_ajax_referer('fsc_nonce', 'nonce');
+        check_ajax_referer('fscmngr_nonce', 'nonce');
 
         $submission_id = intval($_POST['submission_id']);
         $email_addresses = sanitize_text_field($_POST['email_addresses']);
@@ -81,9 +88,9 @@ class FSC_Ajax_Handler
         }
     }
 
-    public static function handle_bulk_delete()
+    public static function fscmngr_handle_bulk_delete()
     {
-        check_ajax_referer('fsc_nonce', 'nonce');
+        check_ajax_referer('fscmngr_nonce', 'nonce');
 
         $submission_ids = isset($_POST['submission_ids']) ? array_map('intval', $_POST['submission_ids']) : array();
 
@@ -101,8 +108,8 @@ class FSC_Ajax_Handler
         wp_send_json_success('Selected submissions deleted successfully.');
     }
 
-    // public static function handle_bulk_export() {
-    //     check_admin_referer( 'fsc_nonce', 'nonce' );
+    // public static function fscmngr_handle_bulk_export() {
+    //     check_admin_referer( 'fscmngr_nonce', 'nonce' );
 
     //     // Sanitize and validate submission IDs
     //     $submission_ids = isset( $_POST['submission_ids'] ) ? array_map( 'intval', explode( ',', sanitize_text_field( $_POST['submission_ids'] ) ) ) : array();
@@ -193,8 +200,8 @@ class FSC_Ajax_Handler
     //         wp_die( esc_html__( 'Failed to create temporary file.', 'form-submissions-manager' ) );
     //     }
     // }
-    // public static function handle_bulk_export() {
-    //     check_admin_referer( 'fsc_nonce', 'nonce' );
+    // public static function fscmngr_handle_bulk_export() {
+    //     check_admin_referer( 'fscmngr_nonce', 'nonce' );
 
     //     // Sanitize and validate submission IDs
     //     $submission_ids = isset( $_POST['submission_ids'] ) ? array_map( 'intval', explode( ',', sanitize_text_field( $_POST['submission_ids'] ) ) ) : array();
@@ -271,9 +278,9 @@ class FSC_Ajax_Handler
 
 
 
-    public static function handle_bulk_email()
+    public static function fscmngr_handle_bulk_email()
     {
-        check_ajax_referer('fsc_nonce', 'nonce');
+        check_ajax_referer('fscmngr_nonce', 'nonce');
 
         $submission_ids = isset($_POST['submission_ids'])
             ? array_filter(
@@ -342,9 +349,9 @@ class FSC_Ajax_Handler
         }
     }
 }
-add_action('wp_ajax_fsc_filter_submissions', array('FSC_Ajax_Handler', 'handle_form_submission_filter'));
-add_action('wp_ajax_fsc_delete_submission', array('FSC_Ajax_Handler', 'handle_submission_deletion'));
-add_action('wp_ajax_fsc_send_email', array('FSC_Ajax_Handler', 'handle_send_email'));
-add_action('wp_ajax_fsc_bulk_delete', array('FSC_Ajax_Handler', 'handle_bulk_delete'));
-add_action('wp_ajax_fsc_bulk_export', array('FSC_Ajax_Handler', 'handle_bulk_export'));
-add_action('wp_ajax_fsc_bulk_email', array('FSC_Ajax_Handler', 'handle_bulk_email'));
+add_action('wp_ajax_fscmngr_filter_submissions', array('FSCMNGR\Includes\FSCMNGR_Ajax_Handler', 'fscmngr_handle_form_submission_filter'));
+add_action('wp_ajax_fscmngr_delete_submission', array('FSCMNGR\Includes\FSCMNGR_Ajax_Handler', 'fscmngr_handle_submission_deletion'));
+add_action('wp_ajax_fscmngr_send_email', array('FSCMNGR\Includes\FSCMNGR_Ajax_Handler', 'fscmngr_handle_send_email'));
+add_action('wp_ajax_fscmngr_bulk_delete', array('FSCMNGR\Includes\FSCMNGR_Ajax_Handler', 'fscmngr_handle_bulk_delete'));
+add_action('wp_ajax_fscmngr_bulk_export', array('FSCMNGR\Includes\FSCMNGR_Ajax_Handler', 'fscmngr_handle_bulk_export'));
+add_action('wp_ajax_fscmngr_bulk_email', array('FSCMNGR\Includes\FSCMNGR_Ajax_Handler', 'fscmngr_handle_bulk_email'));

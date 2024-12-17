@@ -1,24 +1,28 @@
 <?php
+namespace FSCMNGR\Includes;
+
 // Prevent direct access
 if (!defined('ABSPATH')) {
     exit;
 }
 
-class FSC_Form_Submission
+use FSCMNGR\Includes\FSCMNGR_Form_Detection;
+
+class FSCMNGR_Form_Submission
 {
     /**
      * Display the submissions table in the admin page
      */
-    public static function display_submissions_table()
+    public static function fscmngr_display_submissions_table()
     {
         // Fetch all available forms
-        $available_forms = FSC_Form_Detection::get_available_forms();
-        $installed_plugins = FSC_Form_Detection::detect_form_plugins();
+        $available_forms = FSCMNGR_Form_Detection::fscmngr_get_available_forms();
+        $installed_plugins = FSCMNGR_Form_Detection::fscmngr_detect_form_plugins();
 
         echo '<form id="fsc-filter-form" method="post" action="">';
 
         // Nonce field for security
-        wp_nonce_field('fsc_export_csv_nonce', 'fsc_export_csv_nonce');
+        wp_nonce_field('fscmngr_export_csv_nonce', 'fscmngr_export_csv_nonce');
 
         // Form plugin selection dropdown
         echo '<label for="form_plugin">' . esc_html('Select Form Plugin:', 'form-submissions-manager') . '</label>';
@@ -66,7 +70,7 @@ class FSC_Form_Submission
         echo '<button type="submit">' . esc_html('Filter', 'form-submissions-manager') . '</button>';
 
         // Export CSV button
-        echo '<button type="submit" name="fsc_export_csv" value="1">' . esc_html('Export CSV', 'form-submissions-manager') . '</button>';
+        echo '<button type="submit" name="fscmngr_export_csv" value="1">' . esc_html('Export CSV', 'form-submissions-manager') . '</button>';
         echo '</div>';
 
         echo '</form>';
@@ -79,7 +83,7 @@ class FSC_Form_Submission
 
         // Display the table of submissions
         echo '<div id="fsc-submissions-table">';
-        self::fetch_and_display_submissions();
+        self::fscmngr_fetch_and_display_submissions();
         echo '</div>';
 ?>
 
@@ -102,7 +106,7 @@ class FSC_Form_Submission
     /**
      * Fetch and display the filtered submissions
      */
-    public static function fetch_and_display_submissions()
+    public static function fscmngr_fetch_and_display_submissions()
     {
         global $wpdb;
         $table_name = $wpdb->prefix . 'form_submissions';
@@ -251,13 +255,13 @@ class FSC_Form_Submission
             echo '<p>' . esc_html('No submissions found', 'form-submissions-manager') . '</p>';
         }
 
-        self::display_pagination($page, $per_page);
+        self::fscmngr_display_pagination($page, $per_page);
     }
 
     /**
      * Display pagination links
      */
-    public static function display_pagination($current_page, $per_page)
+    public static function fscmngr_display_pagination($current_page, $per_page)
     {
         global $wpdb;
         $table_name = $wpdb->prefix . 'form_submissions';
@@ -286,16 +290,16 @@ class FSC_Form_Submission
     /**
      * Handle the CSV export functionality
      */
-    public static function handle_csv_export()
+    public static function fscmngr_handle_csv_export()
     {
         // Check if the CSV export was requested
-        if (isset($_POST['fsc_export_csv']) && $_POST['fsc_export_csv'] == '1') {
+        if (isset($_POST['fscmngr_export_csv']) && $_POST['fscmngr_export_csv'] == '1') {
 
             // Verify nonce for security
             if (
-                !isset($_POST['fsc_export_csv_nonce']) || 
-                !is_string($_POST['fsc_export_csv_nonce']) || 
-                !wp_verify_nonce($_POST['fsc_export_csv_nonce'], 'fsc_export_csv_nonce')
+                !isset($_POST['fscmngr_export_csv_nonce']) || 
+                !is_string($_POST['fscmngr_export_csv_nonce']) ||
+                !wp_verify_nonce(sanitize_text_field( wp_unslash ($_POST['fscmngr_export_csv_nonce'])), 'fscmngr_export_csv_nonce')
             ) {
                 wp_die(__('Nonce verification failed.', 'text-domain'));
             }
@@ -385,4 +389,4 @@ class FSC_Form_Submission
     }
 }
 // Register the CSV export handler
-add_action('admin_init', array('FSC_Form_Submission', 'handle_csv_export'));
+add_action('admin_init', array('FSCMNGR\Includes\FSCMNGR_Form_Submission', 'fscmngr_handle_csv_export'));

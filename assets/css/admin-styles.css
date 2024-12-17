@@ -229,3 +229,71 @@ table th, table td {
     border: 1px solid #000000;
     cursor: pointer;
 }
+
+/* Loader styling */
+.fsc-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    z-index: 1000; /* Make sure it appears above everything */
+}
+
+.fsc-loader:before {
+    content: "";
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #0073aa; /* WordPress blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+/* Animation for spinning effect */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Notification styling */
+.fsc-notification {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-left: 4px solid transparent;
+    background-color: #f7f7f7;
+    border-radius: 4px;
+    display: none; /* Hidden by default */
+}
+
+.fsc-notification.success {
+    border-left-color: #46b450; /* WordPress success green */
+    background-color: #e7f7e9;
+    color: #217c1e;
+}
+
+.fsc-notification.error {
+    border-left-color: #dc3232; /* WordPress error red */
+    background-color: #fbeaea;
+    color: #dc3232;
+}
+
+.fsc-notification.warning {
+    border-left-color: #ffb900; /* WordPress warning yellow */
+    background-color: #fff6e5;
+    color: #ffb900;
+}
+
+/* Close button for notifications */
+.fsc-notification .close-notice {
+    float: right;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+/*-----------------------*/

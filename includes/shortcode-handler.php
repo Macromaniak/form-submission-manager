@@ -1,6 +1,13 @@
 <?php
-class FSMANAGER_Shortcode_Handler {
-    public static function fs_manager_generate_shortcode( $atts ) {
+namespace FSCMNGR\Includes;
+
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+class FSCMNGR_Shortcode_Handler {
+    public static function fscmngr_generate_shortcode( $atts ) {
         $atts = shortcode_atts( array(
             'form_plugin' => '',
             'form_id' => ''
@@ -27,4 +34,4 @@ class FSMANAGER_Shortcode_Handler {
         return ob_get_clean();
     }
 }
-add_shortcode( 'fsc_form_submissions', array( 'FSMANAGER_Shortcode_Handler', 'fs_manager_generate_shortcode' ) );
+add_shortcode( 'fsc_form_submissions', array( 'FSCMNGR_Shortcode_Handler', 'fscmngr_generate_shortcode' ) );

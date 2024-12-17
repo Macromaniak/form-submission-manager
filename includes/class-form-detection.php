@@ -1,23 +1,25 @@
 <?php
+namespace FSCMNGR\Includes;
+
 // Prevent direct access
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class FSC_Form_Detection {
+class FSCMNGR_Form_Detection {
 
     /**
      * Constructor - Adds hooks for form submission capture
      */
     public function __construct() {
         // Hook into Contact Form 7 submissions
-        add_action( 'wpcf7_mail_sent', array( $this, 'capture_cf7_submission' ) );
+        add_action( 'wpcf7_mail_sent', array( $this, 'fscmngr_capture_cf7_submission' ) );
 
         // Hook into Gravity Forms submissions
-        add_action( 'gform_after_submission', array( $this, 'capture_gf_submission' ), 10, 2 );
+        add_action( 'gform_after_submission', array( $this, 'fscmngr_capture_gf_submission' ), 10, 2 );
 
         // Hook into WPForms submissions
-        add_action( 'wpforms_process_complete', array( $this, 'capture_wpforms_submission' ), 10, 4 );
+        add_action( 'wpforms_process_complete', array( $this, 'fscmngr_capture_wpforms_submission' ), 10, 4 );
     }
 
     /**
@@ -25,7 +27,7 @@ class FSC_Form_Detection {
      *
      * @param WPCF7_ContactForm $contact_form The contact form instance
      */
-    public function capture_cf7_submission( $contact_form ) {
+    public function fscmngr_capture_cf7_submission( $contact_form ) {
         global $wpdb;
         error_log('cf 7 submission..');
 
@@ -53,7 +55,7 @@ class FSC_Form_Detection {
      * @param array $entry The form entry data
      * @param array $form  The form data
      */
-    public function capture_gf_submission( $entry, $form ) {
+    public function fscmngr_capture_gf_submission( $entry, $form ) {
         global $wpdb;
 
         $form_id   = $form['id'];
@@ -79,7 +81,7 @@ class FSC_Form_Detection {
      * @param array $form_data  Form data
      * @param int   $entry_id   Entry ID
      */
-    public function capture_wpforms_submission( $fields, $entry, $form_data, $entry_id ) {
+    public function fscmngr_capture_wpforms_submission( $fields, $entry, $form_data, $entry_id ) {
         global $wpdb;
 
         $form_id = $form_data['id'];
@@ -101,7 +103,7 @@ class FSC_Form_Detection {
      *
      * @return array List of available forms grouped by plugin
      */
-    public static function get_available_forms() {
+    public static function fscmngr_get_available_forms() {
         $forms = array();
 
         // Contact Form 7 forms
@@ -136,7 +138,7 @@ class FSC_Form_Detection {
      *
      * @return array List of active form plugins
      */
-    public static function detect_form_plugins() {
+    public static function fscmngr_detect_form_plugins() {
         $installed_plugins = array();
 
         // Check for Contact Form 7
@@ -158,5 +160,5 @@ class FSC_Form_Detection {
     }
 }
 
-// Instantiate the FSC_Form_Detection class
-new FSC_Form_Detection();
+// Instantiate the FSCMNGR_Form_Detection class
+new FSCMNGR_Form_Detection();
