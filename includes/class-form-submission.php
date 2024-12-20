@@ -301,7 +301,7 @@ class FSCMNGR_Form_Submission
                 !is_string($_POST['fscmngr_export_csv_nonce']) ||
                 !wp_verify_nonce(sanitize_text_field( wp_unslash ($_POST['fscmngr_export_csv_nonce'])), 'fscmngr_export_csv_nonce')
             ) {
-                wp_die(__('Nonce verification failed.', 'text-domain'));
+                wp_die(__('Nonce verification failed.', 'form-submissions-manager'));
             }
             
 

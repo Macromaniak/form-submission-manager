@@ -55,7 +55,7 @@ add_action( 'admin_menu', 'fscmngr_admin_menu' );
 
 // Display Admin Page
 function fscmngr_display_submissions_page() {
-    echo '<div class="wrap">';
+    echo '<div class="fscmngr-admin-wrap">';
     echo '<h1>' . esc_html( 'Form Submissions', 'form-submissions-manager' ) . '</h1>';
     // Output table of form submissions
     FSCMNGR_Form_Submission::fscmngr_display_submissions_table();
