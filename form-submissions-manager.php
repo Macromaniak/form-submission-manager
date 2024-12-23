@@ -28,13 +28,15 @@ require_once FSCMNGR_PLUGIN_DIR . 'includes/shortcode-handler.php';
 
 use FSCMNGR\Includes\FSCMNGR_Form_Submission;
 
+error_log(FSCMNGR_PLUGIN_URL . 'assets/js/admin-scripts.js');
+
 // Enqueue admin styles and scripts
 function fscmngr_enqueue_admin_assets() {
-    wp_enqueue_style( 'fsc-admin-style', FSCMNGR_PLUGIN_URL . 'assets/css/admin-styles.css' );
-    wp_enqueue_script( 'fsc-admin-scripts', FSCMNGR_PLUGIN_URL . 'assets/js/admin-scripts.js', array( 'jquery' ), FSCMNGR_PLUGIN_VERSION, true );
+    wp_enqueue_style( 'fscmngr-admin-style', FSCMNGR_PLUGIN_URL . 'assets/css/admin-styles.css' );
+    wp_enqueue_script( 'fscmngr-admin-script', FSCMNGR_PLUGIN_URL . 'assets/js/admin-scripts.js', array( 'jquery-core' ), FSCMNGR_PLUGIN_VERSION, true );
 
     // Localize script for AJAX
-    wp_localize_script( 'fsc-admin-scripts', 'fscmngr_ajax_object', array( 
+    wp_localize_script( 'fscmngr-admin-script', 'fscmngr_ajax_object', array( 
         'ajax_url' => admin_url( 'admin-ajax.php' ),
         'nonce'    => wp_create_nonce( 'fscmngr_nonce' )
     ));

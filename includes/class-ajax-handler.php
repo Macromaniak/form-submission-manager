@@ -6,6 +6,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use FSCMNGR\Includes\FSCMNGR_Form_Submission;
+
 class FSCMNGR_Ajax_Handler
 {
     public static function fscmngr_handle_form_submission_filter()
@@ -17,7 +19,7 @@ class FSCMNGR_Ajax_Handler
         $_POST['form_id']     = intval($_POST['form_id']);
 
         // Call the display method to fetch and output submissions
-        FSCMNGR_Form_Submission::fetch_and_display_submissions();
+        FSCMNGR_Form_Submission::fscmngr_fetch_and_display_submissions();
 
         wp_die();
     }
@@ -107,176 +109,6 @@ class FSCMNGR_Ajax_Handler
 
         wp_send_json_success('Selected submissions deleted successfully.');
     }
-
-    // public static function fscmngr_handle_bulk_export() {
-    //     check_admin_referer( 'fscmngr_nonce', 'nonce' );
-
-    //     // Sanitize and validate submission IDs
-    //     $submission_ids = isset( $_POST['submission_ids'] ) ? array_map( 'intval', explode( ',', sanitize_text_field( $_POST['submission_ids'] ) ) ) : array();
-
-    //     if ( empty( $submission_ids ) ) {
-    //         wp_die( esc_html__( 'No submissions selected for export.', 'form-submissions-manager' ) );
-    //     }
-
-    //     global $wpdb, $wp_filesystem;
-    //     $table_name = $wpdb->prefix . 'form_submissions';
-
-    //     // Initialize WP_Filesystem if not already done
-    //     if ( ! function_exists( 'WP_Filesystem' ) ) {
-    //         require_once( ABSPATH . 'wp-admin/includes/file.php' );
-    //     }
-    //     WP_Filesystem();
-
-    //     // Prepare the query using placeholders directly for secure SQL construction
-    //     $placeholders = implode( ',', array_fill( 0, count( $submission_ids ), '%d' ) );
-    //     $query = $wpdb->prepare( "SELECT * FROM $table_name WHERE id IN ($placeholders)", $submission_ids );
-    //     $submissions = $wpdb->get_results("{$query}", ARRAY_A );
-
-    //     if ( empty( $submissions ) ) {
-    //         wp_die( esc_html__( 'No submissions found for export.', 'form-submissions-manager' ) );
-    //     }
-
-    //     // Create a temporary file path for the CSV
-    //     $temp_file = wp_tempnam( 'bulk-form-submissions.csv' );
-
-    //     if ( $temp_file ) {
-    //         // Initialize CSV content with headers, ensuring safe output
-    //         $csv_content = esc_html( "ID,Form Plugin,Form ID,Field Name,Field Value,Date Submitted\n" );
-
-    //         // Iterate through each submission and add rows to the CSV content
-    //         foreach ( $submissions as $submission ) {
-    //             $form_data = maybe_unserialize( $submission['submission_data'] );
-
-    //             if ( is_array( $form_data ) ) {
-    //                 if ( $submission['form_plugin'] === 'wpforms' ) {
-    //                     // Handle WPForms submissions
-    //                     foreach ( $form_data as $field ) {
-    //                         if ( isset( $field['name'] ) && isset( $field['value'] ) ) {
-    //                             $row = array(
-    //                                 esc_html( $submission['id'] ),
-    //                                 esc_html( $submission['form_plugin'] ),
-    //                                 esc_html( $submission['form_id'] ),
-    //                                 esc_html( $field['name'] ),
-    //                                 esc_html( is_array( $field['value'] ) ? implode( ', ', $field['value'] ) : $field['value'] ),
-    //                                 esc_html( $submission['date_submitted'] )
-    //                             );
-    //                             $csv_content .= implode( ',', $row ) . "\n";
-    //                         }
-    //                     }
-    //                 } else {
-    //                     // Handle other form plugins like Contact Form 7
-    //                     foreach ( $form_data as $key => $value ) {
-    //                         $row = array(
-    //                             esc_html( $submission['id'] ),
-    //                             esc_html( $submission['form_plugin'] ),
-    //                             esc_html( $submission['form_id'] ),
-    //                             esc_html( ucfirst( str_replace( '_', ' ', $key ) ) ),
-    //                             esc_html( is_array( $value ) ? implode( ', ', $value ) : $value ),
-    //                             esc_html( $submission['date_submitted'] )
-    //                         );
-    //                         $csv_content .= implode( ',', $row ) . "\n";
-    //                     }
-    //                 }
-    //             }
-    //         }
-
-    //         // Write the CSV content to the temporary file using WP_Filesystem
-    //         if ( $wp_filesystem->put_contents( $temp_file, $csv_content, FS_CHMOD_FILE ) ) {
-    //             // Send headers for file download
-    //             header( 'Content-Type: text/csv; charset=utf-8' );
-    //             header( 'Content-Disposition: attachment; filename="bulk-form-submissions.csv"' );
-
-    //             // Output the contents of the file to the browser safely
-    //             echo wp_kses_post( $wp_filesystem->get_contents( $temp_file ) );
-
-    //             // Delete the temporary file
-    //             $wp_filesystem->delete( $temp_file );
-
-    //             exit; // Terminate after file download
-    //         } else {
-    //             wp_die( esc_html__( 'Failed to write to temporary file.', 'form-submissions-manager' ) );
-    //         }
-    //     } else {
-    //         wp_die( esc_html__( 'Failed to create temporary file.', 'form-submissions-manager' ) );
-    //     }
-    // }
-    // public static function fscmngr_handle_bulk_export() {
-    //     check_admin_referer( 'fscmngr_nonce', 'nonce' );
-
-    //     // Sanitize and validate submission IDs
-    //     $submission_ids = isset( $_POST['submission_ids'] ) ? array_map( 'intval', explode( ',', sanitize_text_field( $_POST['submission_ids'] ) ) ) : array();
-
-    //     if ( empty( $submission_ids ) ) {
-    //         wp_die( esc_html__( 'No submissions selected for export.', 'form-submissions-manager' ) );
-    //     }
-
-    //     global $wpdb;
-    //     $table_name = $wpdb->prefix . 'form_submissions';
-
-    //     // Prepare the query using placeholders for secure SQL construction
-    //     $placeholders = implode( ',', array_fill( 0, count( $submission_ids ), '%d' ) );
-    //     $query = $wpdb->prepare( "SELECT * FROM $table_name WHERE id IN ($placeholders)", $submission_ids );
-    //     $submissions = $wpdb->get_results("{$query}", ARRAY_A );
-
-    //     if ( empty( $submissions ) ) {
-    //         wp_die( esc_html__( 'No submissions found for export.', 'form-submissions-manager' ) );
-    //     }
-
-    //     // Set headers to prompt file download
-    //     header( 'Content-Type: text/csv; charset=utf-8' );
-    //     header( 'Content-Disposition: attachment; filename="bulk-form-submissions.csv"' );
-
-    //     // Open output stream
-    //     $output = fopen( 'php://output', 'w' );
-
-    //     // Add CSV column headers, ensuring safe output
-    //     fputcsv( $output, array( 'ID', 'Form Plugin', 'Form ID', 'Field Name', 'Field Value', 'Date Submitted' ) );
-
-    //     // Iterate through each submission and add rows to the CSV
-    //     foreach ( $submissions as $submission ) {
-    //         $form_data = maybe_unserialize( $submission['submission_data'] );
-
-    //         if ( is_array( $form_data ) ) {
-    //             if ( $submission['form_plugin'] === 'wpforms' ) {
-    //                 // Handle WPForms submissions
-    //                 foreach ( $form_data as $field ) {
-    //                     if ( isset( $field['name'] ) && isset( $field['value'] ) ) {
-    //                         $row = array(
-    //                             esc_html( $submission['id'] ),
-    //                             esc_html( $submission['form_plugin'] ),
-    //                             esc_html( $submission['form_id'] ),
-    //                             esc_html( $field['name'] ),
-    //                             esc_html( is_array( $field['value'] ) ? implode( ', ', $field['value'] ) : $field['value'] ),
-    //                             esc_html( $submission['date_submitted'] )
-    //                         );
-    //                         fputcsv( $output, $row );
-    //                     }
-    //                 }
-    //             } else {
-    //                 // Handle other form plugins like Contact Form 7
-    //                 foreach ( $form_data as $key => $value ) {
-    //                     $row = array(
-    //                         esc_html( $submission['id'] ),
-    //                         esc_html( $submission['form_plugin'] ),
-    //                         esc_html( $submission['form_id'] ),
-    //                         esc_html( ucfirst( str_replace( '_', ' ', $key ) ) ),
-    //                         esc_html( is_array( $value ) ? implode( ', ', $value ) : $value ),
-    //                         esc_html( $submission['date_submitted'] )
-    //                     );
-    //                     fputcsv( $output, $row );
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     // Close the output stream
-    //     fclose( $output );
-
-    //     exit; // Terminate after file download
-    // }
-
-
-
 
     public static function fscmngr_handle_bulk_email()
     {

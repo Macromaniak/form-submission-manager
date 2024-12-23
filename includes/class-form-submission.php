@@ -1,4 +1,5 @@
 <?php
+
 namespace FSCMNGR\Includes;
 
 // Prevent direct access
@@ -93,10 +94,13 @@ class FSCMNGR_Form_Submission
                 <span class="fsc-modal-close">&times;</span>
                 <h2><?php esc_html('Send Submission via Email', 'form-submissions-manager'); ?></h2>
                 <form id="fsc-email-form">
-                    <label for="fsc-email-addresses"><?php _esc_html('Enter email addresses (comma separated):', 'form-submissions-manager'); ?></label>
+                    <label for="fsc-email-addresses"><?php esc_html_e('Enter email addresses (comma separated):', 'form-submissions-manager'); ?></label>
                     <input type="text" id="fsc-email-addresses" name="email_addresses" style="width: 100%; padding: 8px;" required />
                     <input type="hidden" id="fsc-email-submission-id" name="submission_id" />
-                    <button type="submit" class="button button-primary"><?php esc_html('Send Email', 'form-submissions-manager'); ?></button>
+                    <button type="submit" class="button button-primary">
+                        <?php esc_html_e('Send Email', 'form-submissions-manager'); ?>
+                    </button>
+
                 </form>
             </div>
         </div>
@@ -142,7 +146,7 @@ class FSCMNGR_Form_Submission
             $query .= " AND date_submitted >= %s";
             $query_params[] = $start_date . ' 00:00:00'; // Start of the day
         }
-        
+
         if (!empty($end_date)) {
             $query .= " AND date_submitted <= %s";
             $query_params[] = $end_date . ' 23:59:59'; // End of the day
@@ -281,7 +285,7 @@ class FSCMNGR_Form_Submission
                 'total'   => $total_pages,
                 'prev_text' => esc_html__('&laquo; Previous', 'form-submissions-manager'),
                 'next_text' => esc_html__('Next &raquo;', 'form-submissions-manager'),
-            )));            
+            )));
             echo '</div>';
         }
     }
@@ -297,13 +301,13 @@ class FSCMNGR_Form_Submission
 
             // Verify nonce for security
             if (
-                !isset($_POST['fscmngr_export_csv_nonce']) || 
+                !isset($_POST['fscmngr_export_csv_nonce']) ||
                 !is_string($_POST['fscmngr_export_csv_nonce']) ||
-                !wp_verify_nonce(sanitize_text_field( wp_unslash ($_POST['fscmngr_export_csv_nonce'])), 'fscmngr_export_csv_nonce')
+                !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['fscmngr_export_csv_nonce'])), 'fscmngr_export_csv_nonce')
             ) {
                 wp_die(__('Nonce verification failed.', 'form-submissions-manager'));
             }
-            
+
 
             global $wpdb;
             $table_name = $wpdb->prefix . 'form_submissions';
@@ -336,7 +340,7 @@ class FSCMNGR_Form_Submission
             // Set headers to force download
             header('Content-Type: text/csv; charset=utf-8');
             header('Content-Disposition: attachment; filename=form_submissions.csv');
-            
+
             // Open output stream
             $output = fopen('php://output', 'w');
 
