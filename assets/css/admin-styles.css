@@ -5,7 +5,8 @@
     width: 100%;
     border-collapse: collapse;
 }
-.fscmngr-admin-wrap table th, table td {
+.fscmngr-admin-wrap table th, 
+.fscmngr-admin-wrap table td {
     padding: 10px;
     border: 1px solid #ddd;
 }

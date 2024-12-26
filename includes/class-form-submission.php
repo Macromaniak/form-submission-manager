@@ -33,18 +33,6 @@ class FSCMNGR_Form_Submission
             echo '<option value="' . esc_attr($plugin_slug) . '">' . esc_html($plugin_name) . '</option>';
         }
         echo '</select>';
-
-        // Form selection dropdown
-        // echo '<label for="form_id">' . __('Select Form:', 'form-submissions-manager') . '</label>';
-        // echo '<select name="form_id" id="form_id">';
-        // echo '<option value="">' . __('All Forms', 'form-submissions-manager') . '</option>';
-        // foreach ($available_forms as $plugin_slug => $forms) {
-        //     foreach ($forms as $form) {
-        //         echo '<option value="' . esc_attr($form['id']) . '" data-plugin="' . esc_attr($plugin_slug) . '">' . esc_html($form['title']) . '</option>';
-        //     }
-        // }
-        // echo '</select>';
-        // Form selection dropdown
         echo '<label for="form_id">' . esc_html('Select Form:', 'form-submissions-manager') . '</label>';
         echo '<select name="form_id" id="form_id">';
         echo '<option value="">' . esc_html('All Forms', 'form-submissions-manager') . '</option>';
@@ -185,9 +173,6 @@ class FSCMNGR_Form_Submission
                 echo '<td>' . esc_html($submission['id']) . '</td>';
                 echo '<td>' . esc_html($submission['form_plugin']) . '</td>';
                 echo '<td>' . esc_html($submission['form_id']) . '</td>';
-                //echo '<td><pre>' . esc_html( print_r( maybe_unserialize( $submission['submission_data'] ), true ) ) . '</pre></td>';
-                // Unserialize the submission data
-                // Unserialize the submission data
                 $form_data = maybe_unserialize($submission['submission_data']);
 
                 // Check if it's a valid array
@@ -248,12 +233,6 @@ class FSCMNGR_Form_Submission
             }
             echo '</tbody>';
             echo '</table>';
-            // Bulk action buttons
-            // echo '<div class="fsc-bulk-actions">';
-            // echo '<button type="button" class="button-primary" id="fsc-bulk-delete">' . esc_html('Bulk Delete', 'form-submissions-manager') . '</button>';
-            // echo '<button type="button" class="button-secondary" id="fsc-bulk-export">' . esc_html('Bulk Export', 'form-submissions-manager') . '</button>';
-            // echo '<button type="button" class="button-secondary" id="fsc-bulk-email">' . esc_html('Bulk Email', 'form-submissions-manager') . '</button>';
-            // echo '</div>';
             echo '</form>';
         } else {
             echo '<p>' . esc_html('No submissions found', 'form-submissions-manager') . '</p>';

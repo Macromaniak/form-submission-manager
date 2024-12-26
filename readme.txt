@@ -1,5 +1,5 @@
 ===Form Submissions Manager===
-Contributors: anandhunadesh
+Contributors: anandhunadesh, silpa2930
 Tags: forms, form submissions, manage form submissions, export form submissions
 Requires at least: 3.0.1
 Tested up to: 6.7

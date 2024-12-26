@@ -50,7 +50,8 @@ function fscmngr_admin_menu() {
         esc_html( 'Form Submissions', 'form-submissions-manager' ),
         'manage_options',
         'fsc-form-submissions',
-        'fscmngr_display_submissions_page'
+        'fscmngr_display_submissions_page',
+        'dashicons-list-view'
     );
 }
 add_action( 'admin_menu', 'fscmngr_admin_menu' );

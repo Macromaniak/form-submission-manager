@@ -62,7 +62,7 @@ jQuery(document).ready(function ($) {
       form_id: $("#form_id").val(),
       start_date: $("#start_date").val(), // Include start date
       end_date: $("#end_date").val(), // Include end date
-      keyword: $("keyword").val(),
+      keyword: $("#keyword").val(),
       nonce: fscmngr_ajax_object.nonce,
     };
 
