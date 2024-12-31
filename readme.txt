@@ -1,5 +1,5 @@
 ===Form Submissions Manager===
-Contributors: anandhunadesh, silpa2930
+Contributors: anandhunadesh, shilpaashokan94
 Tags: forms, form submissions, manage form submissions, export form submissions
 Requires at least: 3.0.1
 Tested up to: 6.7
@@ -61,7 +61,8 @@ You can modify the CSS file located at assets/css/admin-style.css to customize t
 
 ===Support===
 
-If you have any questions, issues, or feature requests, please feel free to reach out at anandhu.natesh@gmail.com / anandhu.nadesh@gmail.com or create an issue in the plugin's repository.
+If you have any questions, issues, or feature requests, please feel free to reach out at anandhu.natesh@gmail.com / anandhu.nadesh@gmail.com
+If you want to contribute, please create an issue or submit a pull request on [Github](https://github.com/Macromaniak/form-submission-manager).
 
 ===License===
 
