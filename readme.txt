@@ -9,7 +9,7 @@ License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
 A simple plugin to manage various form submissions data with ease.
 
-== Description ==
+==Description==
 
 Form Submissions Manager is a powerful WordPress plugin that captures, stores, and manages form submissions from popular form plugins such as Contact Form 7, Gravity Forms, and WPForms. The plugin offers an intuitive admin interface for viewing, filtering, exporting, emailing, and managing form submissions, making it a comprehensive tool for form data management.
 
