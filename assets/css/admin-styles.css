@@ -47,58 +47,84 @@
     padding-bottom: 10px;      /* Padding below the heading */
 }
 
-/* Form Container Styling */
+/* Form Container */
 .fscmngr-admin-wrap #fsc-filter-form {
     display: flex;
-    align-items: center;
-    margin-bottom: 20px;       /* Space below the form */
-    gap: 15px;                 /* Space between form elements */
-    flex-wrap: wrap;           /* Allow wrapping on smaller screens */
+    flex-direction: column;
+    gap: 20px; /* Space between rows */
+    margin-bottom: 20px;
+}
+
+/* Row Styling */
+.fscmngr-admin-wrap #fsc-filter-form .fsc-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: flex-end; /* Align elements at the bottom */
+}
+
+/* Field Styling */
+.fscmngr-admin-wrap #fsc-filter-form .fsc-field {
+    flex: 1 1 230px; /* Flexible width, minimum of 230px */
+    max-width: 300px; /* Maximum width for fields */
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Space between label and input */
 }
 
 /* Label Styling */
 .fscmngr-admin-wrap #fsc-filter-form label {
     font-weight: bold;
-    margin-right: 5px;
+    white-space: nowrap; /* Prevent line breaks */
 }
 
-/* Dropdown Select Styling */
-.fscmngr-admin-wrap #fsc-filter-form select {
-    padding: 5px 10px;
+/* Input and Select Styling */
+.fscmngr-admin-wrap #fsc-filter-form select,
+.fscmngr-admin-wrap #fsc-filter-form input[type="date"],
+.fscmngr-admin-wrap #fsc-filter-form input[type="text"] {
+    padding: 6px 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #fff;
     transition: border-color 0.2s;
-    max-width: 300px; /* Limit max width to avoid excessively wide select boxes */
-    /* width: auto; Allow the select field to adjust based on content */
-    width: -webkit-fill-available;
+    width: 100%; /* Full width of the parent */
 }
 
-.fscmngr-admin-wrap #fsc-filter-form select:focus {
-    border-color: #0073aa; /* WordPress blue for focus */
+.fscmngr-admin-wrap #fsc-filter-form select:focus,
+.fscmngr-admin-wrap #fsc-filter-form input:focus {
+    border-color: #0073aa; /* WordPress blue */
     outline: none;
 }
-
+/* Button Field Styling */
+.fscmngr-admin-wrap #fsc-filter-form .fsc-buttons {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    flex: 1 1 auto; /* Flexible width for alignment */
+    max-width: unset; /* Prevent max-width constraint */
+}
 /* Button Styling */
 .fscmngr-admin-wrap #fsc-filter-form button {
-    padding: 6px 12px;
-    background-color: #0073aa;  /* WordPress blue */
+    padding: 12px;
+    background-color: #0073aa; /* WordPress blue */
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s;
     font-weight: bold;
+    white-space: nowrap; /* Prevent wrapping */
 }
 
 .fscmngr-admin-wrap #fsc-filter-form button:hover {
-    background-color: #005d8f;  /* Darker blue on hover */
+    background-color: #005d8f; /* Darker blue on hover */
 }
 
-/* Spacing between buttons */
-.fscmngr-admin-wrap #fsc-filter-form button:not(:last-child) {
-    margin-right: 10px;         /* Space between buttons */
+/* Button Container */
+.fscmngr-admin-wrap #fsc-filter-form .fsc-row:last-child {
+    justify-content: flex-start;
+    gap: 10px;
 }
+
 
 /* Table Styling (Already Applied) */
 .fscmngr-admin-wrap .fsc-submission-data-table {

@@ -18,52 +18,58 @@ class FSCMNGR_Form_Submission
     {
         // Fetch all available forms
         $available_forms = FSCMNGR_Form_Detection::fscmngr_get_available_forms();
-        $installed_plugins = FSCMNGR_Form_Detection::fscmngr_detect_form_plugins();
+        $installed_plugins = FSCMNGR_Form_Detection::fscmngr_detect_form_plugins(); ?>
+        <form id="fsc-filter-form" method="post" action="">
 
-        echo '<form id="fsc-filter-form" method="post" action="">';
+            <!-- Nonce field for security -->
+            <?php wp_nonce_field('fscmngr_export_csv_nonce', 'fscmngr_export_csv_nonce'); ?>
 
-        // Nonce field for security
-        wp_nonce_field('fscmngr_export_csv_nonce', 'fscmngr_export_csv_nonce');
+            <div class="fsc-row">
+                <!-- First Row -->
+                <div class="fsc-field">
+                    <label for="form_plugin"><?php esc_html_e('Select Form Plugin:', 'form-submissions-manager'); ?></label>
+                    <select name="form_plugin" id="form_plugin">
+                        <option value=""><?php esc_html_e('All Form Plugins', 'form-submissions-manager'); ?></option>
+                        <?php foreach ($installed_plugins as $plugin_slug => $plugin_name): ?>
+                            <option value="<?php echo esc_attr($plugin_slug); ?>"><?php echo esc_html($plugin_name); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-        // Form plugin selection dropdown
-        echo '<label for="form_plugin">' . esc_html('Select Form Plugin:', 'form-submissions-manager') . '</label>';
-        echo '<select name="form_plugin" id="form_plugin">';
-        echo '<option value="">' . esc_html('All Form Plugins', 'form-submissions-manager') . '</option>';
-        foreach ($installed_plugins as $plugin_slug => $plugin_name) {
-            echo '<option value="' . esc_attr($plugin_slug) . '">' . esc_html($plugin_name) . '</option>';
-        }
-        echo '</select>';
-        echo '<label for="form_id">' . esc_html('Select Form:', 'form-submissions-manager') . '</label>';
-        echo '<select name="form_id" id="form_id">';
-        echo '<option value="">' . esc_html('All Forms', 'form-submissions-manager') . '</option>';
-        foreach ($available_forms as $plugin_slug => $forms) {
-            foreach ($forms as $form) {
-                echo '<option value="' . esc_attr($form['id']) . '" data-plugin="' . esc_attr($plugin_slug) . '">' . esc_html($form['title']) . '</option>';
-            }
-        }
-        echo '</select>';
+                <div class="fsc-field">
+                    <label for="form_id"><?php esc_html_e('Select Form:', 'form-submissions-manager'); ?></label>
+                    <select name="form_id" id="form_id">
+                        <option value=""><?php esc_html_e('All Forms', 'form-submissions-manager'); ?></option>
+                        <?php foreach ($available_forms as $plugin_slug => $forms): ?>
+                            <?php foreach ($forms as $form): ?>
+                                <option value="<?php echo esc_attr($form['id']); ?>" data-plugin="<?php echo esc_attr($plugin_slug); ?>"><?php echo esc_html($form['title']); ?></option>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="fsc-field">
+                    <label for="start_date"><?php esc_html_e('Start Date:', 'form-submissions-manager'); ?></label>
+                    <input type="date" name="start_date" id="start_date" />
+                </div>
 
-        // Date range filter
-        echo '<label for="start_date">' . esc_html('Start Date:', 'form-submissions-manager') . '</label>';
-        echo '<input type="date" name="start_date" id="start_date" />';
+                <div class="fsc-field">
+                    <label for="end_date"><?php esc_html_e('End Date:', 'form-submissions-manager'); ?></label>
+                    <input type="date" name="end_date" id="end_date" />
+                </div>
+                <div class="fsc-field">
+                    <label for="keyword"><?php esc_html_e('Keyword:', 'form-submissions-manager'); ?></label>
+                    <input type="text" name="keyword" id="keyword" placeholder="<?php esc_attr_e('Search keyword...', 'form-submissions-manager'); ?>" />
+                </div>
+                
+                <div class="fsc-buttons">
+                    <button type="submit"><?php esc_html_e('Filter', 'form-submissions-manager'); ?></button>
+                    <button type="submit" name="fscmngr_export_csv" value="1"><?php esc_html_e('Export CSV', 'form-submissions-manager'); ?></button>
+                </div>
+            </div>
+        </form>
 
-        echo '<label for="end_date">' . esc_html('End Date:', 'form-submissions-manager') . '</label>';
-        echo '<input type="date" name="end_date" id="end_date" />';
-        echo '<div>';
-        // Keyword filter
-        echo '<label for="keyword">' . esc_html('Keyword:', 'form-submissions-manager') . '</label>';
-        echo '<input type="text" name="keyword" id="keyword" placeholder="' . esc_attr('Search keyword...', 'form-submissions-manager') . '" />';
 
-
-
-        echo '<button type="submit">' . esc_html('Filter', 'form-submissions-manager') . '</button>';
-
-        // Export CSV button
-        echo '<button type="submit" name="fscmngr_export_csv" value="1">' . esc_html('Export CSV', 'form-submissions-manager') . '</button>';
-        echo '</div>';
-
-        echo '</form>';
-
+        <?php 
         //alert box
         echo '<div id="fsc-notification" class="fsc-notification" style="display:none;"></div>';
 
