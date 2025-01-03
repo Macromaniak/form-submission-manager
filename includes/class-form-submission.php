@@ -64,6 +64,7 @@ class FSCMNGR_Form_Submission
                 <div class="fsc-buttons">
                     <button type="submit"><?php esc_html_e('Filter', 'form-submissions-manager'); ?></button>
                     <button type="submit" name="fscmngr_export_csv" value="1"><?php esc_html_e('Export CSV', 'form-submissions-manager'); ?></button>
+                    <button type="button" id="clear-filters"><?php esc_html_e('Clear All Filters', 'form-submissions-manager'); ?></button>
                 </div>
             </div>
         </form>

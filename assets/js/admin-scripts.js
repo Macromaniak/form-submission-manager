@@ -297,4 +297,9 @@ jQuery(document).ready(function ($) {
       showNotification("Failed to send bulk email. Please try again.", "error");
     });
   });
+
+  //Clear all filters
+  $('#clear-filters').on('click', function (e) {
+    location.reload();
+  });
 });

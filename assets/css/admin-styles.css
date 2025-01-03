@@ -126,48 +126,31 @@
 }
 
 
-/* Table Styling (Already Applied) */
-.fscmngr-admin-wrap .fsc-submission-data-table {
+.fsc-submission-data-wrapper {
+    max-height: 150px; /* Adjust height as needed */
+    overflow-y: auto;
+    border: 1px solid #ddd; /* Optional: adds a border */
+}
+
+.fsc-submission-data-table {
     border-collapse: collapse;
     width: 100%;
 }
 
-.fscmngr-admin-wrap .fsc-submission-data-table th,
-.fscmngr-admin-wrap .fsc-submission-data-table td {
+.fsc-submission-data-table th,
+.fsc-submission-data-table td {
     padding: 5px;
     border: 1px solid #ddd;
 }
 
-.fscmngr-admin-wrap .fsc-submission-data-table th {
+.fsc-submission-data-table th {
     background-color: #f7f7f7;
     text-align: left;
 }
 
 
 /* Delete button styling */
-.fscmngr-admin-wrap .fsc-delete-submission {
-    padding: 4px 8px;
-    background-color: #f8d7da; /* Light red background */
-    color: #721c24;            /* Darker red text */
-    border: 1px solid #f5c6cb; /* Border in the same color range */
-    border-radius: 4px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    transition: background-color 0.2s;
-    font-size: 14px; /* Adjust font size */
-}
 
-.fscmngr-admin-wrap .fsc-delete-submission:hover {
-    background-color: #f5c6cb; /* Slightly darker red on hover */
-    border-color: #f1b0b7;
-}
-
-/* Icon inside delete button */
-.fscmngr-admin-wrap .fsc-delete-submission .dashicons {
-    margin-right: 4px;
-    font-size: 16px;
-}
 
 /* Modal Background */
 .fscmngr-admin-wrap .fsc-modal {
@@ -183,29 +166,46 @@
 }
 
 /* Email button styling */
+.fscmngr-admin-wrap .fsc-delete-submission,
 .fscmngr-admin-wrap .fsc-email-submission {
-    padding: 4px 8px;
-    background-color: #d1ecf1; /* Light blue background */
-    color: #0c5460;           /* Darker blue text */
-    border: 1px solid #bee5eb; /* Border in the same color range */
+    padding: 6px 12px;
+    background-color: #f8d7da; /* For Delete Button */
+    color: #721c24; /* For Delete Button Text */
     border-radius: 4px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    transition: background-color 0.2s;
-    font-size: 14px; /* Adjust font size */
-    margin-right: 5px; /* Consistent spacing with the Delete button */
+    justify-content: center; /* Ensures proper centering */
+    font-size: 14px;
+    border: 1px solid transparent; /* General border */
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.fscmngr-admin-wrap .fsc-email-submission {
+    background-color: #d1ecf1; /* For Email Button */
+    color: #0c5460; /* For Email Button Text */
+    border-color: #bee5eb;
+    margin-right: 5px;
+}
+
+.fscmngr-admin-wrap .fsc-delete-submission:hover {
+    background-color: #f5c6cb; /* Hover effect for Delete Button */
+    border-color: #f1b0b7;
 }
 
 .fscmngr-admin-wrap .fsc-email-submission:hover {
-    background-color: #bee5eb; /* Slightly darker blue on hover */
+    background-color: #bee5eb; /* Hover effect for Email Button */
     border-color: #abdde5;
 }
 
-/* Icon inside email button */
-.fscmngr-admin-wrap .fsc-email-submission .dashicons {
-    margin-right: 4px;
+/* Icons within the buttons */
+.fscmngr-admin-wrap .fsc-email-submission .dashicons,
+.fscmngr-admin-wrap .fsc-delete-submission .dashicons {
+    margin-right: 6px; /* Adjust space between icon and text */
     font-size: 16px;
+    display: inline-block;
+    height: auto;
+    line-height: normal;
 }
 
 
