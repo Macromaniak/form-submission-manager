@@ -48,7 +48,7 @@ jQuery(document).ready(function ($) {
   // Handle form submission filtering
   $(".fscmngr-admin-wrap #fsc-filter-form").on("submit", function (e) {
     // Check if the export button was clicked
-    if ($('button[name="fsc_export_csv"]').is(":focus")) {
+    if ($('button[name="fscmngr_export_csv"]').is(":focus")) {
       return; // Allow the form to be submitted normally for CSV export
     }
 
