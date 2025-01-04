@@ -2,7 +2,7 @@
 /*
 Plugin Name: Form Submissions Manager
 Description: Capture and display form submissions from popular form plugins like Contact Form 7, Gravity Forms, and WPForms.
-Version: 1.0
+Version: 1.1
 Requires at least: 6.3
 Requires PHP: 7.2.24
 Author: Anandhu Nadesh
