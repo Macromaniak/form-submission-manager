@@ -126,24 +126,24 @@
 }
 
 
-.fsc-submission-data-wrapper {
+.fscmngr-admin-wrap .fsc-submission-data-wrapper {
     max-height: 150px; /* Adjust height as needed */
     overflow-y: auto;
     border: 1px solid #ddd; /* Optional: adds a border */
 }
 
-.fsc-submission-data-table {
+.fscmngr-admin-wrap .fsc-submission-data-table {
     border-collapse: collapse;
     width: 100%;
 }
 
-.fsc-submission-data-table th,
-.fsc-submission-data-table td {
+.fscmngr-admin-wrap .fsc-submission-data-table th,
+.fscmngr-admin-wrap .fsc-submission-data-table td {
     padding: 5px;
     border: 1px solid #ddd;
 }
 
-.fsc-submission-data-table th {
+.fscmngr-admin-wrap .fsc-submission-data-table th {
     background-color: #f7f7f7;
     text-align: left;
 }

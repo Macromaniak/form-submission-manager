@@ -300,6 +300,12 @@ jQuery(document).ready(function ($) {
 
   //Clear all filters
   $('#clear-filters').on('click', function (e) {
-    location.reload();
+    e.preventDefault();
+    $("#form_plugin").val('');
+    $("#form_id").val('');
+    $("#start_date").val('');
+    $("#end_date").val('');
+    $("#keyword").val('');
+    $('#fsc-filter-form').submit();
   });
 });
