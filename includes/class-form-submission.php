@@ -184,7 +184,7 @@ class FSCMNGR_Form_Submission
 
                 // Check if it's a valid array
                 if (is_array($form_data) && !empty($form_data)) {
-                    echo '<td><table class="fsc-submission-data-table">';
+                    echo '<td><div class="fsc-submission-data-wrapper"><table class="fsc-submission-data-table">';
 
                     // Check if the data is from WPForms
                     if ($submission['form_plugin'] === 'wpforms') {
@@ -219,7 +219,7 @@ class FSCMNGR_Form_Submission
                             echo '</tr>';
                         }
                     }
-                    echo '</table></td>';
+                    echo '</div></table></td>';
                 } else {
                     echo '<td>' . esc_html('No data available', 'form-submissions-manager') . '</td>';
                 }
