@@ -129,24 +129,30 @@ class FSCMNGR_Form_Detection
         // Contact Form 7 forms
         if (defined('WPCF7_VERSION') ) {
             $cf7_forms = get_posts(array( 'post_type' => 'wpcf7_contact_form', 'numberposts' => -1 ));
-            foreach ( $cf7_forms as $form ) {
-                $forms['contact-form-7'][] = array( 'id' => $form->ID, 'title' => $form->post_title );
+            if (is_array($cf7_forms)) {
+                foreach ( $cf7_forms as $form ) {
+                    $forms['contact-form-7'][] = array( 'id' => $form->ID, 'title' => $form->post_title );
+                }
             }
         }
 
         // Gravity Forms forms
         if (class_exists('GFForms') ) {
             $gf_forms = GFAPI::get_forms();
-            foreach ( $gf_forms as $form ) {
-                $forms['gravity-forms'][] = array( 'id' => $form['id'], 'title' => $form['title'] );
+            if (is_array($gf_forms)) {
+                foreach ( $gf_forms as $form ) {
+                    $forms['gravity-forms'][] = array( 'id' => $form['id'], 'title' => $form['title'] );
+                }
             }
         }
 
         // WPForms forms
         if (class_exists('WPForms') ) {
             $wpforms_forms = wpforms()->form->get();
-            foreach ( $wpforms_forms as $form ) {
-                $forms['wpforms'][] = array( 'id' => $form->ID, 'title' => $form->post_title );
+            if (is_array($wpforms_forms)) {
+                foreach ( $wpforms_forms as $form ) {
+                    $forms['wpforms'][] = array( 'id' => $form->ID, 'title' => $form->post_title );
+                }
             }
         }
 
