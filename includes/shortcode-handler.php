@@ -17,12 +17,12 @@ class FSCMNGR_Shortcode_Handler
             ), $atts 
         );
 
-        $submissions = FSC_Form_Submission::get_submissions_data($atts['form_plugin'], $atts['form_id']);
+        $submissions = \FSCMNGR\Includes\FSCMNGR_Form_Submission::get_submissions_data($atts['form_plugin'], $atts['form_id']);
 
         ob_start();
         if (! empty($submissions) ) {
             echo '<table>';
-            echo '<thead><tr><th>' . esc_html('ID', 'form-submissions-manager') . '</th><th>' . esc_html('Submission Data', 'form-submissions-manager') . '</th></tr></thead>';
+            echo '<thead><tr><th>' . esc_html__('ID', 'form-submissions-manager') . '</th><th>' . esc_html__('Submission Data', 'form-submissions-manager') . '</th></tr></thead>';
             echo '<tbody>';
             foreach ( $submissions as $submission ) {
                 echo '<tr>';
@@ -33,9 +33,9 @@ class FSCMNGR_Shortcode_Handler
             echo '</tbody>';
             echo '</table>';
         } else {
-            echo '<p>' . esc_html('No submissions found', 'form-submissions-manager') . '</p>';
+            echo '<p>' . esc_html__('No submissions found', 'form-submissions-manager') . '</p>';
         }
         return ob_get_clean();
     }
 }
-add_shortcode('fsc_form_submissions', array( 'FSCMNGR_Shortcode_Handler', 'fscmngr_generate_shortcode' ));
+add_shortcode('fsc_form_submissions', array( 'FSCMNGR\Includes\FSCMNGR_Shortcode_Handler', 'fscmngr_generate_shortcode' ));

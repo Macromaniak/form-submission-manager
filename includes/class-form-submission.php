@@ -87,7 +87,7 @@ class FSCMNGR_Form_Submission
         <div id="fsc-email-modal" class="fsc-modal" style="display:none;">
             <div class="fsc-modal-content">
                 <span class="fsc-modal-close">&times;</span>
-                <h2><?php esc_html('Send Submission via Email', 'form-submissions-manager'); ?></h2>
+                <h2><?php esc_html_e('Send Submission via Email', 'form-submissions-manager'); ?></h2>
                 <form id="fsc-email-form">
                     <label for="fsc-email-addresses"><?php esc_html_e('Enter email addresses (comma separated):', 'form-submissions-manager'); ?></label>
                     <input type="text" id="fsc-email-addresses" name="email_addresses" style="width: 100%; padding: 8px;" required />
@@ -166,12 +166,12 @@ class FSCMNGR_Form_Submission
             echo '<table>';
             echo '<thead><tr>';
             echo '<th><input type="checkbox" id="fsc-select-all"></th>';
-            echo '<th>' . esc_html('ID', 'form-submissions-manager') . '</th>';
-            echo '<th>' . esc_html('Form Plugin', 'form-submissions-manager') . '</th>';
-            echo '<th>' . esc_html('Form ID', 'form-submissions-manager') . '</th>';
-            echo '<th>' . esc_html('Submission Data', 'form-submissions-manager') . '</th>';
-            echo '<th>' . esc_html('Date Submitted', 'form-submissions-manager') . '</th>';
-            echo '<th>' . esc_html('Actions', 'form-submissions-manager') . '</th>';
+            echo '<th>' . esc_html__('ID', 'form-submissions-manager') . '</th>';
+            echo '<th>' . esc_html__('Form Plugin', 'form-submissions-manager') . '</th>';
+            echo '<th>' . esc_html__('Form ID', 'form-submissions-manager') . '</th>';
+            echo '<th>' . esc_html__('Submission Data', 'form-submissions-manager') . '</th>';
+            echo '<th>' . esc_html__('Date Submitted', 'form-submissions-manager') . '</th>';
+            echo '<th>' . esc_html__('Actions', 'form-submissions-manager') . '</th>';
             echo '</tr></thead>';
             echo '<tbody>';
             foreach ($submissions as $submission) {
@@ -221,17 +221,17 @@ class FSCMNGR_Form_Submission
                     }
                     echo '</div></table></td>';
                 } else {
-                    echo '<td>' . esc_html('No data available', 'form-submissions-manager') . '</td>';
+                    echo '<td>' . esc_html__('No data available', 'form-submissions-manager') . '</td>';
                 }
 
 
                 echo '<td>' . esc_html($submission['date_submitted']) . '</td>';
                 echo '<td>
         <button class="fsc-email-submission" data-id="' . esc_attr($submission['id']) . '">
-            <span class="dashicons dashicons-email"></span> ' . esc_html('Email', 'form-submissions-manager') . '
+            <span class="dashicons dashicons-email"></span> ' . esc_html__('Email', 'form-submissions-manager') . '
         </button>
         <button class="fsc-delete-submission" data-id="' . esc_attr($submission['id']) . '">
-            <span class="dashicons dashicons-trash"></span> ' . esc_html('Delete', 'form-submissions-manager') . '
+            <span class="dashicons dashicons-trash"></span> ' . esc_html__('Delete', 'form-submissions-manager') . '
         </button>
       </td>';
 
@@ -242,7 +242,7 @@ class FSCMNGR_Form_Submission
             echo '</table>';
             echo '</form>';
         } else {
-            echo '<p>' . esc_html('No submissions found', 'form-submissions-manager') . '</p>';
+            echo '<p>' . esc_html__('No submissions found', 'form-submissions-manager') . '</p>';
         }
 
         self::fscmngr_display_pagination($page, $per_page);
@@ -320,7 +320,7 @@ class FSCMNGR_Form_Submission
             $submissions = $wpdb->get_results($wpdb->prepare("{$query}", $query_params), ARRAY_A);
 
             if (empty($submissions)) {
-                wp_die(esc_html('No submissions found for export.', 'form-submissions-manager'));
+                wp_die(esc_html__('No submissions found for export.', 'form-submissions-manager'));
             }
 
             // Set headers to force download
@@ -376,6 +376,52 @@ class FSCMNGR_Form_Submission
             // Ensure no other output
             exit;
         }
+    }
+
+    /**
+     * Get submissions data for shortcode usage
+     *
+     * @param string $form_plugin Form plugin slug
+     * @param int    $form_id     Form ID
+     * @return array Array of submission data
+     */
+    public static function get_submissions_data($form_plugin = '', $form_id = 0)
+    {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'form_submissions';
+
+        // Build query
+        $query = "SELECT * FROM $table_name WHERE 1=1";
+        $query_params = array();
+
+        if (!empty($form_plugin)) {
+            $query .= " AND form_plugin = %s";
+            $query_params[] = sanitize_text_field($form_plugin);
+        }
+
+        if (!empty($form_id)) {
+            $query .= " AND form_id = %d";
+            $query_params[] = intval($form_id);
+        }
+
+        $query .= " ORDER BY date_submitted DESC";
+
+        // Execute the query
+        $submissions = $wpdb->get_results($wpdb->prepare("{$query}", $query_params), ARRAY_A);
+
+        $results = array();
+        foreach ($submissions as $submission) {
+            $form_data = maybe_unserialize($submission['submission_data']);
+            $results[] = array(
+                'id' => $submission['id'],
+                'form_plugin' => $submission['form_plugin'],
+                'form_id' => $submission['form_id'],
+                'data' => $form_data,
+                'date_submitted' => $submission['date_submitted']
+            );
+        }
+
+        return $results;
     }
 }
 // Register the CSV export handler

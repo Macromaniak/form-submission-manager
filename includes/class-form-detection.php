@@ -32,9 +32,8 @@ class FSCMNGR_Form_Detection
     public function fscmngr_capture_cf7_submission( $contact_form )
     {
         global $wpdb;
-        error_log('cf 7 submission..');
 
-        $submission = WPCF7_Submission::get_instance();
+        $submission = \WPCF7_Submission::get_instance(); 
         if ($submission ) {
             $form_data = $submission->get_posted_data();
             $form_id   = $contact_form->id();

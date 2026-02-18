@@ -2,9 +2,9 @@
 /*
 Plugin Name: Form Submissions Manager
 Description: Capture and display form submissions from popular form plugins like Contact Form 7, Gravity Forms, and WPForms.
-Version: 1.1
+Version: 1.3
 Requires at least: 6.3
-Requires PHP: 7.2.24
+Requires PHP: 7.4
 Author: Anandhu Nadesh
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -28,8 +28,6 @@ require_once FSCMNGR_PLUGIN_DIR . 'includes/shortcode-handler.php';
 
 use FSCMNGR\Includes\FSCMNGR_Form_Submission;
 
-error_log(FSCMNGR_PLUGIN_URL . 'assets/js/admin-scripts.js');
-
 // Enqueue admin styles and scripts
 function fscmngr_enqueue_admin_assets()
 {
@@ -50,8 +48,8 @@ add_action('admin_enqueue_scripts', 'fscmngr_enqueue_admin_assets');
 function fscmngr_admin_menu()
 {
     add_menu_page(
-        esc_html('Form Submissions', 'form-submissions-manager'),
-        esc_html('Form Submissions', 'form-submissions-manager'),
+        esc_html__('Form Submissions', 'form-submissions-manager'),
+        esc_html__('Form Submissions', 'form-submissions-manager'),
         'manage_options',
         'fsc-form-submissions',
         'fscmngr_display_submissions_page',
@@ -64,7 +62,7 @@ add_action('admin_menu', 'fscmngr_admin_menu');
 function fscmngr_display_submissions_page()
 {
     echo '<div class="fscmngr-admin-wrap">';
-    echo '<h1>' . esc_html('Form Submissions', 'form-submissions-manager') . '</h1>';
+    echo '<h1>' . esc_html__('Form Submissions', 'form-submissions-manager') . '</h1>';
     // Output table of form submissions
     FSCMNGR_Form_Submission::fscmngr_display_submissions_table();
     echo '</div>';

@@ -180,10 +180,10 @@ class FSCMNGR_Ajax_Handler
             wp_send_json_error(__('Failed to send bulk email.', 'form-submissions-manager'));
         }
     }
+
 }
 add_action('wp_ajax_fscmngr_filter_submissions', array('FSCMNGR\Includes\FSCMNGR_Ajax_Handler', 'fscmngr_handle_form_submission_filter'));
 add_action('wp_ajax_fscmngr_delete_submission', array('FSCMNGR\Includes\FSCMNGR_Ajax_Handler', 'fscmngr_handle_submission_deletion'));
 add_action('wp_ajax_fscmngr_send_email', array('FSCMNGR\Includes\FSCMNGR_Ajax_Handler', 'fscmngr_handle_send_email'));
 add_action('wp_ajax_fscmngr_bulk_delete', array('FSCMNGR\Includes\FSCMNGR_Ajax_Handler', 'fscmngr_handle_bulk_delete'));
-add_action('wp_ajax_fscmngr_bulk_export', array('FSCMNGR\Includes\FSCMNGR_Ajax_Handler', 'fscmngr_handle_bulk_export'));
 add_action('wp_ajax_fscmngr_bulk_email', array('FSCMNGR\Includes\FSCMNGR_Ajax_Handler', 'fscmngr_handle_bulk_email'));
