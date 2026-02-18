@@ -39,7 +39,7 @@ class FSCMNGR_Form_Detection
             $form_id   = $contact_form->id();
 
             // Store submission data in the custom table
-            $wpdb->insert(
+            $result = $wpdb->insert(
                 $wpdb->prefix . 'form_submissions',
                 array(
                     'form_plugin'     => 'contact-form-7',
@@ -48,6 +48,11 @@ class FSCMNGR_Form_Detection
                 ),
                 array( '%s', '%d', '%s' )
             );
+
+            // Log error if insert failed
+            if ($result === false) {
+                error_log('Form Submissions Manager: Failed to save CF7 submission. Error: ' . $wpdb->last_error);
+            }
         }
     }
 
@@ -65,7 +70,7 @@ class FSCMNGR_Form_Detection
         $form_data = $entry;
 
         // Store submission data in the custom table
-        $wpdb->insert(
+        $result = $wpdb->insert(
             $wpdb->prefix . 'form_submissions',
             array(
                 'form_plugin'     => 'gravity-forms',
@@ -74,6 +79,11 @@ class FSCMNGR_Form_Detection
             ),
             array( '%s', '%d', '%s' )
         );
+
+        // Log error if insert failed
+        if ($result === false) {
+            error_log('Form Submissions Manager: Failed to save Gravity Forms submission. Error: ' . $wpdb->last_error);
+        }
     }
 
     /**
@@ -91,7 +101,7 @@ class FSCMNGR_Form_Detection
         $form_id = $form_data['id'];
 
         // Store submission data in the custom table
-        $wpdb->insert(
+        $result = $wpdb->insert(
             $wpdb->prefix . 'form_submissions',
             array(
                 'form_plugin'     => 'wpforms',
@@ -100,6 +110,11 @@ class FSCMNGR_Form_Detection
             ),
             array( '%s', '%d', '%s' )
         );
+
+        // Log error if insert failed
+        if ($result === false) {
+            error_log('Form Submissions Manager: Failed to save WPForms submission. Error: ' . $wpdb->last_error);
+        }
     }
 
     /**

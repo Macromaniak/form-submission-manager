@@ -3,7 +3,7 @@ Contributors: anandhunadesh, shilpaashokan94, phaseswpdev
 Tags: forms, form submissions, manage form submissions, export form submissions
 Requires at least: 3.0.1
 Tested up to: 6.9
-Stable tag: 1.3
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -61,6 +61,28 @@ No, Form Submissions Manager operates independently and does not require any oth
 
 Q3: How do I customize the styling of the admin interface?
 You can modify the CSS file located at assets/css/admin-style.css to customize the look and feel of the admin interface.
+
+===Changelog===
+
+= 1.4 =
+* New Feature: Form Data CSV Export - Export form submissions with fields as columns (requires specific form selection)
+* Improved UI with selected actions dropdown menu
+* Enhanced pagination styling and functionality
+* Fixed pagination issues when filters are applied
+* Fixed select all checkbox functionality after page navigation
+* Added better error handling and validation
+* Improved security with capability checks
+* Enhanced bulk operations (delete, export, email)
+* Better date and keyword filtering support
+* Improved user experience with loading states and notifications
+* UI improvements: Better spacing, reduced filter field widths, improved button styling
+* Form data export includes metadata (Submission ID and Date) by default
+* Field limit warning for forms with more than 30 fields
+
+= 1.0 =
+* Initial release.
+* Capture and display submissions from Contact Form 7, Gravity Forms, and WPForms.
+* Added filtering, CSV export, email, and delete functionality.
 
 ===Support===
 
