@@ -1,7 +1,7 @@
 ===Form Submissions Manager===
 Contributors: anandhunadesh, shilpaashokan94, phaseswpdev
 Tags: forms, form submissions, manage form submissions, export form submissions
-Requires at least: 3.0.1
+Requires at least: 6.3
 Tested up to: 6.9
 Stable tag: 1.4
 License: GPLv2 or later
